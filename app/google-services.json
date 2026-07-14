@@ -1,0 +1,166 @@
+{
+  "project_info": {
+    "project_number": "1046770373322",
+    "project_id": "trackmapgo",
+    "storage_bucket": "trackmapgo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046770373322:android:7a70fb4c3abf9bdd65da33",
+        "android_client_info": {
+          "package_name": "ch.overlandmap.map"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1046770373322-h0c17f29vfevsnsg11p4p6r0n4djm1nb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.overlandmap.map",
+            "certificate_hash": "bb9e30ae000a500cafc36e09f94769e23dc61de9"
+          }
+        },
+        {
+          "client_id": "1046770373322-ht2pb2gelkfdl345p46h7ik9jsn42t5h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.overlandmap.map",
+            "certificate_hash": "28eb9bf99beebe4dc71d73408137361a61d6b39b"
+          }
+        },
+        {
+          "client_id": "1046770373322-l1ns16bsjmu6dji1tlmhntmna576fmou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.overlandmap.map",
+            "certificate_hash": "07132f07fc9db3284ef4b8025e4ccccdc66b72e4"
+          }
+        },
+        {
+          "client_id": "1046770373322-vqhv3mbf8k033di6kt22j8q6lp39ft8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8UIMtsgNk28M66PKYASdoJKpsoeH1vTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046770373322-vqhv3mbf8k033di6kt22j8q6lp39ft8t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1046770373322-5hdvg68pjujnj217singpe6k8st6uo7o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ch.overlandmap.TrackPackEditor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046770373322:android:c12538af2343292965da33",
+        "android_client_info": {
+          "package_name": "com.ride2ladakh.map"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1046770373322-8svrbagn4n3ngq4moot8tb0jvcpe0pkt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ride2ladakh.map",
+            "certificate_hash": "07132f07fc9db3284ef4b8025e4ccccdc66b72e4"
+          }
+        },
+        {
+          "client_id": "1046770373322-f8e14lrshrfqlcu4s87s00a1168u9qsb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ride2ladakh.map",
+            "certificate_hash": "28eb9bf99beebe4dc71d73408137361a61d6b39b"
+          }
+        },
+        {
+          "client_id": "1046770373322-vqhv3mbf8k033di6kt22j8q6lp39ft8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8UIMtsgNk28M66PKYASdoJKpsoeH1vTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046770373322-vqhv3mbf8k033di6kt22j8q6lp39ft8t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1046770373322-5hdvg68pjujnj217singpe6k8st6uo7o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ch.overlandmap.TrackPackEditor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046770373322:android:da9b52188dd7a55765da33",
+        "android_client_info": {
+          "package_name": "com.trackmapgo.trackmap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1046770373322-st3lfmhmc00d5ppr1dvv2a79fsqvophm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trackmapgo.trackmap",
+            "certificate_hash": "28eb9bf99beebe4dc71d73408137361a61d6b39b"
+          }
+        },
+        {
+          "client_id": "1046770373322-vqhv3mbf8k033di6kt22j8q6lp39ft8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8UIMtsgNk28M66PKYASdoJKpsoeH1vTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046770373322-vqhv3mbf8k033di6kt22j8q6lp39ft8t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1046770373322-5hdvg68pjujnj217singpe6k8st6uo7o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ch.overlandmap.TrackPackEditor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

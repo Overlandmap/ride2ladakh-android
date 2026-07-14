@@ -1,0 +1,73 @@
+{
+  "emulators": {
+    "auth": {
+      "host":"192.168.1.61",
+      "port": 9099
+    },
+    "firestore": {
+      "host":"192.168.1.61",
+      "port": 8080
+    },
+    "hosting": {
+      "host":"192.168.1.61",
+      "port": 5500
+    },
+    "storage": {
+      "host":"192.168.1.61",
+      "port": 9199
+    },
+    "functions": {
+      "host":"192.168.1.61",
+      "port": 5001
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "trackmapgo",
+          "appId": "1:1046770373322:android:da9b52188dd7a55765da33",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "trackmapgo",
+          "appId": "1:1046770373322:ios:fc716009b2a6c38565da33",
+          "uploadDebugSymbols": true,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "trackmapgo",
+          "configurations": {
+            "android": "1:1046770373322:android:da9b52188dd7a55765da33",
+            "ios": "1:1046770373322:ios:fc716009b2a6c38565da33"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
+}

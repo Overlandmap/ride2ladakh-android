@@ -1,0 +1,3 @@
+[submodule "core"]
+	path = core
+	url = git@GithubOverlandmap:Overlandmap/overlandmap-core-android

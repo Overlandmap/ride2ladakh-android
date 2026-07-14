@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:name="ch.overlandmap.map.OverlandApp"
+        android:label="@string/app_name"
+        android:icon="@mipmap/launcher_icon"
+        android:theme="@style/Theme.OverlandMap"
+        android:usesCleartextTraffic="true"
+        android:supportsRtl="true">
+
+        <!-- Cleartext traffic is required for the localhost MBTiles server. -->
+
+        <activity
+            android:name="ch.overlandmap.ride2ladakh.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
