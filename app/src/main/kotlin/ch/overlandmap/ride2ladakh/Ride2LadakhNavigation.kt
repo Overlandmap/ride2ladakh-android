@@ -2,15 +2,26 @@ package ch.overlandmap.ride2ladakh
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import ch.overlandmap.map.R
 import ch.overlandmap.map.ui.SingleTrackPackRoot
 import ch.overlandmap.map.ui.home.ItineraryScreen
 import ch.overlandmap.map.ui.settings.LanguageScreen
@@ -71,7 +82,11 @@ fun Ride2LadakhNavigation() {
             )
         }
         composable("settings") {
-            BelowStatusBar {
+            // Single-pack app: Settings is pushed over the root, so it needs a
+            // back button (the multi-pack app reaches it via a bottom tab and
+            // needs none). The Scaffold's top bar carries the status-bar inset,
+            // so this route isn't wrapped in BelowStatusBar.
+            SettingsWithBack(onBack = { navController.popBackStack() }) {
                 SettingsScreen(
                     onOpenSignIn = { navController.navigate("settings/signIn") },
                     onOpenProfile = { navController.navigate("settings/profile") },
@@ -103,6 +118,26 @@ fun Ride2LadakhNavigation() {
 @Composable
 private fun BelowStatusBar(content: @Composable () -> Unit) {
     Box(modifier = Modifier.fillMaxSize().statusBarsPadding()) { content() }
+}
+
+/** Wraps Settings in a top bar with a back button (single-pack app). */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SettingsWithBack(onBack: () -> Unit, content: @Composable () -> Unit) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.tab_settings)) },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                    }
+                },
+            )
+        },
+    ) { padding ->
+        Box(Modifier.fillMaxSize().padding(padding)) { content() }
+    }
 }
 
 /** Opens an itinerary, optionally on one of its steps (from a markup link). */
