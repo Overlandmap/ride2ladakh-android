@@ -24,6 +24,7 @@ import androidx.navigation.navArgument
 import ch.overlandmap.map.R
 import ch.overlandmap.map.ui.SingleTrackPackRoot
 import ch.overlandmap.map.ui.home.ItineraryScreen
+import ch.overlandmap.map.ui.settings.DownloadsScreen
 import ch.overlandmap.map.ui.settings.LanguageScreen
 import ch.overlandmap.map.ui.settings.ProfileScreen
 import ch.overlandmap.map.ui.settings.SettingsScreen
@@ -92,8 +93,12 @@ fun Ride2LadakhNavigation() {
                     onOpenProfile = { navController.navigate("settings/profile") },
                     onOpenLanguage = { navController.navigate("settings/language") },
                     onOpenUnits = { navController.navigate("settings/units") },
+                    onOpenDownloads = { navController.navigate("settings/downloads") },
                 )
             }
+        }
+        composable("settings/downloads") {
+            DownloadsScreen(onBack = { navController.popBackStack() })
         }
         composable("settings/signIn") {
             BelowStatusBar { SignInScreen(onBack = { navController.popBackStack() }) }
