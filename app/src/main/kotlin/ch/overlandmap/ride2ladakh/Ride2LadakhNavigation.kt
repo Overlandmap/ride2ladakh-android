@@ -35,15 +35,16 @@ fun Ride2LadakhNavigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            BelowStatusBar {
-                SingleTrackPackRoot(
-                    trackPackName = LADAKH_PACK_NAME,
-                    onOpenItinerary = navController::navigateToItinerary,
-                    onOpenShopPack = { navController.navigate("pack/$it") },
-                    onOpenSignIn = { navController.navigate("settings/signIn") },
-                    onOpenSettings = { navController.navigate("settings") },
-                )
-            }
+            // No BelowStatusBar wrapper: the single-pack root draws its map
+            // full-bleed to the top (under the status bar). Its floating
+            // Settings button carries its own status-bar inset.
+            SingleTrackPackRoot(
+                trackPackName = LADAKH_PACK_NAME,
+                onOpenItinerary = navController::navigateToItinerary,
+                onOpenShopPack = { navController.navigate("pack/$it") },
+                onOpenSignIn = { navController.navigate("settings/signIn") },
+                onOpenSettings = { navController.navigate("settings") },
+            )
         }
         composable("pack/{packId}") { entry ->
             PackDetailScreen(
