@@ -25,6 +25,7 @@ import androidx.navigation.navArgument
 import ch.overlandmap.map.R
 import ch.overlandmap.map.ui.SingleTrackPackRoot
 import ch.overlandmap.map.ui.home.ItineraryScreen
+import ch.overlandmap.map.ui.home.SidebarScreen
 import ch.overlandmap.map.ui.settings.DownloadsScreen
 import ch.overlandmap.map.ui.settings.LanguageScreen
 import ch.overlandmap.map.ui.settings.ProfileScreen
@@ -57,6 +58,7 @@ fun Ride2LadakhNavigation() {
                     trackPackName = LADAKH_PACK_NAME,
                     onOpenItinerary = navController::navigateToItinerary,
                     onOpenShopPack = { navController.navigate("pack/$it") },
+                    onOpenSidebar = { navController.navigate("sidebar/$it") },
                     onOpenSignIn = { navController.navigate("settings/signIn") },
                     onOpenSettings = { navController.navigate("settings") },
                 )
@@ -88,9 +90,20 @@ fun Ride2LadakhNavigation() {
                     onBack = { navController.popBackStack() },
                     onOpenItinerary = navController::navigateToItinerary,
                     onOpenPack = { navController.navigate("pack/$it") },
+                    onOpenSidebar = { navController.navigate("sidebar/$it") },
                     initialStepId = entry.arguments?.getInt("step")?.takeIf { it > 0 },
                 )
             }
+        }
+        composable("sidebar/{sidebarId}") { entry ->
+            val sidebarId = entry.arguments?.getString("sidebarId") ?: return@composable
+            SidebarScreen(
+                sidebarId = sidebarId,
+                onBack = { navController.popBackStack() },
+                onOpenItinerary = navController::navigateToItinerary,
+                onOpenSidebar = { navController.navigate("sidebar/$it") },
+                onOpenShopPack = { navController.navigate("pack/$it") },
+            )
         }
         composable("settings") {
             // Single-pack app: Settings is pushed over the root, so it needs a
