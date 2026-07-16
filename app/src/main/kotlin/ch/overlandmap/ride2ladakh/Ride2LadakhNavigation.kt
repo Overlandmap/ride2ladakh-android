@@ -2,6 +2,7 @@ package ch.overlandmap.ride2ladakh
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
@@ -47,23 +48,29 @@ fun Ride2LadakhNavigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            // No BelowStatusBar wrapper: the single-pack root draws its map
-            // full-bleed to the top (under the status bar). Its floating
-            // Settings button carries its own status-bar inset.
-            SingleTrackPackRoot(
-                trackPackName = LADAKH_PACK_NAME,
-                onOpenItinerary = navController::navigateToItinerary,
-                onOpenShopPack = { navController.navigate("pack/$it") },
-                onOpenSignIn = { navController.navigate("settings/signIn") },
-                onOpenSettings = { navController.navigate("settings") },
-            )
+            // No status-bar wrapper: the split's map draws full-bleed to the
+            // top (under the status bar). AboveNavBar keeps the split's bottom
+            // clear of the system nav bar (there's no bottom tab bar here to do
+            // it). The floating Settings button carries its own status inset.
+            AboveNavBar {
+                SingleTrackPackRoot(
+                    trackPackName = LADAKH_PACK_NAME,
+                    onOpenItinerary = navController::navigateToItinerary,
+                    onOpenShopPack = { navController.navigate("pack/$it") },
+                    onOpenSignIn = { navController.navigate("settings/signIn") },
+                    onOpenSettings = { navController.navigate("settings") },
+                )
+            }
         }
         composable("pack/{packId}") { entry ->
-            PackDetailScreen(
-                packId = entry.arguments?.getString("packId") ?: return@composable,
-                onBack = { navController.popBackStack() },
-                onOpenSignIn = { navController.navigate("settings/signIn") },
-            )
+            val packId = entry.arguments?.getString("packId") ?: return@composable
+            AboveNavBar {
+                PackDetailScreen(
+                    packId = packId,
+                    onBack = { navController.popBackStack() },
+                    onOpenSignIn = { navController.navigate("settings/signIn") },
+                )
+            }
         }
         composable(
             "itinerary/{itineraryId}?step={step}",
@@ -74,13 +81,16 @@ fun Ride2LadakhNavigation() {
                 },
             ),
         ) { entry ->
-            ItineraryScreen(
-                itineraryId = entry.arguments?.getString("itineraryId") ?: return@composable,
-                onBack = { navController.popBackStack() },
-                onOpenItinerary = navController::navigateToItinerary,
-                onOpenPack = { navController.navigate("pack/$it") },
-                initialStepId = entry.arguments?.getInt("step")?.takeIf { it > 0 },
-            )
+            val itineraryId = entry.arguments?.getString("itineraryId") ?: return@composable
+            AboveNavBar {
+                ItineraryScreen(
+                    itineraryId = itineraryId,
+                    onBack = { navController.popBackStack() },
+                    onOpenItinerary = navController::navigateToItinerary,
+                    onOpenPack = { navController.navigate("pack/$it") },
+                    initialStepId = entry.arguments?.getInt("step")?.takeIf { it > 0 },
+                )
+            }
         }
         composable("settings") {
             // Single-pack app: Settings is pushed over the root, so it needs a
@@ -123,6 +133,15 @@ fun Ride2LadakhNavigation() {
 @Composable
 private fun BelowStatusBar(content: @Composable () -> Unit) {
     Box(modifier = Modifier.fillMaxSize().statusBarsPadding()) { content() }
+}
+
+/**
+ * Keeps a full-bleed split screen clear of the system navigation bar at the
+ * bottom while leaving the top free to extend under the status bar (the map).
+ */
+@Composable
+private fun AboveNavBar(content: @Composable () -> Unit) {
+    Box(modifier = Modifier.fillMaxSize().navigationBarsPadding()) { content() }
 }
 
 /** Wraps Settings in a top bar with a back button (single-pack app). */
