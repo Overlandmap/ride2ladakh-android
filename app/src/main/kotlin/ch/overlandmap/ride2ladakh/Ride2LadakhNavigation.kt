@@ -23,6 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import ch.overlandmap.map.R
+import ch.overlandmap.map.ui.RestoreAndPersistLastRoute
 import ch.overlandmap.map.ui.SingleTrackPackRoot
 import ch.overlandmap.map.ui.home.ItineraryScreen
 import ch.overlandmap.map.ui.home.SidebarScreen
@@ -31,6 +32,8 @@ import ch.overlandmap.map.ui.settings.LanguageScreen
 import ch.overlandmap.map.ui.settings.ProfileScreen
 import ch.overlandmap.map.ui.settings.SettingsScreen
 import ch.overlandmap.map.ui.settings.SignInScreen
+import ch.overlandmap.map.ui.settings.DebugScreen
+import ch.overlandmap.map.ui.settings.LatestCheckInsScreen
 import ch.overlandmap.map.ui.settings.UnitsScreen
 import ch.overlandmap.map.ui.shop.PackDetailScreen
 
@@ -91,6 +94,7 @@ fun Ride2LadakhNavigation() {
                     onOpenItinerary = navController::navigateToItinerary,
                     onOpenPack = { navController.navigate("pack/$it") },
                     onOpenSidebar = { navController.navigate("sidebar/$it") },
+                    onOpenSettings = { navController.navigate("settings") },
                     initialStepId = entry.arguments?.getInt("step")?.takeIf { it > 0 },
                 )
             }
@@ -117,11 +121,30 @@ fun Ride2LadakhNavigation() {
                     onOpenLanguage = { navController.navigate("settings/language") },
                     onOpenUnits = { navController.navigate("settings/units") },
                     onOpenDownloads = { navController.navigate("settings/downloads") },
+                    onOpenDebug = { navController.navigate("settings/debug") },
                 )
             }
         }
         composable("settings/downloads") {
             DownloadsScreen(onBack = { navController.popBackStack() })
+        }
+        composable("settings/debug") {
+            BelowStatusBar {
+                DebugScreen(
+                    onBack = { navController.popBackStack() },
+                    onOpenLatestCheckIns = { navController.navigate("settings/debug/checkIns") },
+                )
+            }
+        }
+        composable("settings/debug/checkIns") {
+            BelowStatusBar {
+                LatestCheckInsScreen(
+                    onBack = { navController.popBackStack() },
+                    onOpenItinerary = { docId, stepId ->
+                        navController.navigateToItinerary(docId, stepId)
+                    },
+                )
+            }
         }
         composable("settings/signIn") {
             BelowStatusBar { SignInScreen(onBack = { navController.popBackStack() }) }
@@ -141,6 +164,8 @@ fun Ride2LadakhNavigation() {
             BelowStatusBar { UnitsScreen(onBack = { navController.popBackStack() }) }
         }
     }
+    // Restore the last screen after the app is killed, and keep it saved.
+    RestoreAndPersistLastRoute(navController)
 }
 
 @Composable
