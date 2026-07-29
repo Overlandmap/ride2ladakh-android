@@ -27,11 +27,14 @@ import ch.overlandmap.map.ui.RestoreAndPersistLastRoute
 import ch.overlandmap.map.ui.SingleTrackPackRoot
 import ch.overlandmap.map.ui.home.ItineraryScreen
 import ch.overlandmap.map.ui.home.SidebarScreen
+import ch.overlandmap.map.ui.help.HelpScreen
+import ch.overlandmap.map.ui.help.HelpSectionScreen
 import ch.overlandmap.map.ui.settings.DownloadsScreen
 import ch.overlandmap.map.ui.settings.LanguageScreen
 import ch.overlandmap.map.ui.settings.ProfileScreen
 import ch.overlandmap.map.ui.settings.SettingsScreen
 import ch.overlandmap.map.ui.settings.SignInScreen
+import ch.overlandmap.map.ui.settings.TextSizeScreen
 import ch.overlandmap.map.ui.settings.DebugScreen
 import ch.overlandmap.map.ui.settings.LatestCheckInsScreen
 import ch.overlandmap.map.ui.settings.UnitsScreen
@@ -120,13 +123,36 @@ fun Ride2LadakhNavigation() {
                     onOpenProfile = { navController.navigate("settings/profile") },
                     onOpenLanguage = { navController.navigate("settings/language") },
                     onOpenUnits = { navController.navigate("settings/units") },
+                    onOpenTextSize = { navController.navigate("settings/textSize") },
                     onOpenDownloads = { navController.navigate("settings/downloads") },
+                    onOpenHelp = { navController.navigate("settings/help") },
                     onOpenDebug = { navController.navigate("settings/debug") },
                 )
             }
         }
         composable("settings/downloads") {
             DownloadsScreen(onBack = { navController.popBackStack() })
+        }
+        composable("settings/textSize") {
+            BelowStatusBar { TextSizeScreen(onBack = { navController.popBackStack() }) }
+        }
+        composable("settings/help") {
+            BelowStatusBar {
+                HelpScreen(
+                    onOpenSection = { navController.navigate("settings/help/$it") },
+                    onClose = { navController.popBackStack() },
+                )
+            }
+        }
+        composable("settings/help/{sectionId}") { entry ->
+            val sectionId = entry.arguments?.getString("sectionId") ?: return@composable
+            BelowStatusBar {
+                HelpSectionScreen(
+                    sectionId = sectionId,
+                    onBack = { navController.popBackStack() },
+                    onClose = { navController.popBackStack() },
+                )
+            }
         }
         composable("settings/debug") {
             BelowStatusBar {
