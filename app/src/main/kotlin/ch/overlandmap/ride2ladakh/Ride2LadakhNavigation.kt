@@ -14,7 +14,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavType
@@ -22,6 +25,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import ch.overlandmap.map.OverlandApp
 import ch.overlandmap.map.R
 import ch.overlandmap.map.ui.RestoreAndPersistLastRoute
 import ch.overlandmap.map.ui.SingleTrackPackRoot
@@ -29,6 +33,9 @@ import ch.overlandmap.map.ui.home.ItineraryScreen
 import ch.overlandmap.map.ui.home.SidebarScreen
 import ch.overlandmap.map.ui.help.HelpScreen
 import ch.overlandmap.map.ui.help.HelpSectionScreen
+import ch.overlandmap.map.ui.legal.LegalDoc
+import ch.overlandmap.map.ui.legal.LegalDocScreen
+import ch.overlandmap.map.ui.onboarding.OnboardingScreen
 import ch.overlandmap.map.ui.settings.DownloadsScreen
 import ch.overlandmap.map.ui.settings.LanguageScreen
 import ch.overlandmap.map.ui.settings.ProfileScreen
@@ -53,6 +60,12 @@ const val LADAKH_PACK_NAME = "Ladakh"
 @Composable
 fun Ride2LadakhNavigation() {
     val navController = rememberNavController()
+    val app = LocalContext.current.applicationContext as OverlandApp
+    val showOnboarding = remember { !app.userPreferences.onboardingShownNow() }
+    LaunchedEffect(Unit) {
+        if (showOnboarding) navController.navigate("onboarding")
+    }
+
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             // No status-bar wrapper: the split's map draws full-bleed to the
@@ -126,6 +139,8 @@ fun Ride2LadakhNavigation() {
                     onOpenTextSize = { navController.navigate("settings/textSize") },
                     onOpenDownloads = { navController.navigate("settings/downloads") },
                     onOpenHelp = { navController.navigate("settings/help") },
+                    onOpenPrivacy = { navController.navigate("settings/privacy") },
+                    onOpenTerms = { navController.navigate("settings/terms") },
                     onOpenDebug = { navController.navigate("settings/debug") },
                 )
             }
@@ -152,6 +167,16 @@ fun Ride2LadakhNavigation() {
                     onBack = { navController.popBackStack() },
                     onClose = { navController.popBackStack() },
                 )
+            }
+        }
+        composable("settings/privacy") {
+            BelowStatusBar {
+                LegalDocScreen(doc = LegalDoc.PRIVACY, onBack = { navController.popBackStack() })
+            }
+        }
+        composable("settings/terms") {
+            BelowStatusBar {
+                LegalDocScreen(doc = LegalDoc.TERMS, onBack = { navController.popBackStack() })
             }
         }
         composable("settings/debug") {
@@ -188,6 +213,29 @@ fun Ride2LadakhNavigation() {
         }
         composable("settings/units") {
             BelowStatusBar { UnitsScreen(onBack = { navController.popBackStack() }) }
+        }
+        // Forced first-launch onboarding: accept the policies before entering
+        // the app. In single-pack mode, "try a sample" downloads the free
+        // itinerary and opens the pack viewer directly.
+        composable("onboarding") {
+            BelowStatusBar {
+                OnboardingScreen(
+                    appName = "Ride 2 Ladakh",
+                    logoRes = ch.overlandmap.ride2ladakh.R.drawable.app_logo,
+                    onViewPrivacy = { navController.navigate("settings/privacy") },
+                    onViewTerms = { navController.navigate("settings/terms") },
+                    onAcceptTutorial = {
+                        navController.navigate("settings/help") {
+                            popUpTo("onboarding") { inclusive = true }
+                        }
+                    },
+                    onAcceptSample = {
+                        navController.navigate("home") {
+                            popUpTo("onboarding") { inclusive = true }
+                        }
+                    },
+                )
+            }
         }
     }
     // Restore the last screen after the app is killed, and keep it saved.
