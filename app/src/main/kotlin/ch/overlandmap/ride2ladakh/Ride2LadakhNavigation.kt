@@ -38,6 +38,7 @@ import ch.overlandmap.map.ui.legal.LegalDocScreen
 import ch.overlandmap.map.ui.onboarding.OnboardingScreen
 import ch.overlandmap.map.ui.settings.DownloadsScreen
 import ch.overlandmap.map.ui.settings.LanguageScreen
+import ch.overlandmap.map.ui.settings.AboutScreen
 import ch.overlandmap.map.ui.settings.ProfileScreen
 import ch.overlandmap.map.ui.settings.SettingsScreen
 import ch.overlandmap.map.ui.settings.SignInScreen
@@ -133,6 +134,7 @@ fun Ride2LadakhNavigation() {
             SettingsWithBack(onBack = { navController.popBackStack() }) {
                 SettingsScreen(
                     onOpenSignIn = { navController.navigate("settings/signIn") },
+                    onOpenAbout = { navController.navigate("settings/about") },
                     onOpenProfile = { navController.navigate("settings/profile") },
                     onOpenLanguage = { navController.navigate("settings/language") },
                     onOpenUnits = { navController.navigate("settings/units") },
@@ -147,6 +149,9 @@ fun Ride2LadakhNavigation() {
         }
         composable("settings/downloads") {
             DownloadsScreen(onBack = { navController.popBackStack() })
+        }
+        composable("settings/about") {
+            BelowStatusBar { AboutScreen(onBack = { navController.popBackStack() }) }
         }
         composable("settings/textSize") {
             BelowStatusBar { TextSizeScreen(onBack = { navController.popBackStack() }) }
