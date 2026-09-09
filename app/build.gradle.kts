@@ -18,14 +18,14 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "ch.overlandmap.ride2ladakh"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.ride2ladakh.map"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 5
-        versionName = "1.0.4"
+        targetSdk = 36
+        versionCode = 7
+        versionName = "1.1.1"
     }
 
     signingConfigs {
