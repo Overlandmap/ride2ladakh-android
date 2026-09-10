@@ -24,8 +24,8 @@ android {
         applicationId = "com.ride2ladakh.map"
         minSdk = 26
         targetSdk = 36
-        versionCode = 8
-        versionName = "1.1.2"
+        versionCode = 9
+        versionName = "1.1.3"
     }
 
     signingConfigs {
