@@ -111,6 +111,8 @@ fun Ride2LadakhNavigation() {
                     onOpenItinerary = navController::navigateToItinerary,
                     onOpenPack = { navController.navigate("pack/$it") },
                     onOpenSidebar = { navController.navigate("sidebar/$it") },
+                    // The single-pack app has no search destination.
+                    onOpenSearch = {},
                     onOpenSettings = { navController.navigate("settings") },
                     initialStepId = entry.arguments?.getInt("step")?.takeIf { it > 0 },
                 )
