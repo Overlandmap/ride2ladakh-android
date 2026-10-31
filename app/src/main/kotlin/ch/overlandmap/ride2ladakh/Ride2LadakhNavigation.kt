@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -47,6 +48,7 @@ import ch.overlandmap.map.ui.settings.DebugScreen
 import ch.overlandmap.map.ui.settings.LatestCheckInsScreen
 import ch.overlandmap.map.ui.settings.UnitsScreen
 import ch.overlandmap.map.ui.shop.PackDetailScreen
+import ch.overlandmap.map.ui.social.LocalOpenSignIn
 
 /** The single region this app is dedicated to, resolved by pack name. */
 const val LADAKH_PACK_NAME = "Ladakh"
@@ -67,6 +69,7 @@ fun Ride2LadakhNavigation() {
         if (showOnboarding) navController.navigate("onboarding")
     }
 
+    CompositionLocalProvider(LocalOpenSignIn provides { navController.navigate("settings/signIn") }) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             // No status-bar wrapper: the split's map draws full-bleed to the
@@ -244,6 +247,7 @@ fun Ride2LadakhNavigation() {
                 )
             }
         }
+    }
     }
     // Restore the last screen after the app is killed, and keep it saved.
     RestoreAndPersistLastRoute(navController)
