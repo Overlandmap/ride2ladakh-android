@@ -32,6 +32,7 @@ import ch.overlandmap.map.ui.RestoreAndPersistLastRoute
 import ch.overlandmap.map.ui.SingleTrackPackRoot
 import ch.overlandmap.map.ui.home.ItineraryScreen
 import ch.overlandmap.map.ui.home.SidebarScreen
+import ch.overlandmap.map.ui.navigate.NavigationScreen
 import ch.overlandmap.map.ui.help.HelpScreen
 import ch.overlandmap.map.ui.help.HelpSectionScreen
 import ch.overlandmap.map.ui.legal.LegalDoc
@@ -117,9 +118,13 @@ fun Ride2LadakhNavigation() {
                     // The single-pack app has no search destination.
                     onOpenSearch = {},
                     onOpenSettings = { navController.navigate("settings") },
+                    onOpenNavigation = { navController.navigate("navigation") { launchSingleTop = true } },
                     initialStepId = entry.arguments?.getInt("step")?.takeIf { it > 0 },
                 )
             }
+        }
+        composable("navigation") {
+            NavigationScreen(onStopped = { navController.popBackStack() })
         }
         composable("sidebar/{sidebarId}") { entry ->
             val sidebarId = entry.arguments?.getString("sidebarId") ?: return@composable
